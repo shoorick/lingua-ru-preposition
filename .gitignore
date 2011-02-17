@@ -8,3 +8,6 @@ pm_to_blib*
 .lwpcookies
 Lingua-RU-Inflect-*
 cover_db
+*.swp
+*.swo
+*.swn
