@@ -3,7 +3,7 @@
 use Test::More tests => 1;
 
 BEGIN {
-    use_ok( 'Lingua::RU::Inflect' );
+    use_ok( 'Lingua::RU::Preposition' );
 }
 
-diag( "Testing Lingua::RU::Inflect $Lingua::RU::Inflect::VERSION, Perl $], $^X" );
+diag( "Testing Lingua::RU::Preposition $Lingua::RU::Preposition::VERSION, Perl $], $^X" );

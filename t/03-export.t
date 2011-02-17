@@ -3,8 +3,8 @@
 use utf8;
 use Test::More 'no_plan';
 
-# use Lingua::RU::Inflect qw/:subs :genders :cases/;
-use Lingua::RU::Inflect qw/:all/;
+# use Lingua::RU::Preposition qw/:subs/;
+use Lingua::RU::Preposition qw/:all/;
 
 ok( MASCULINE == 1, 'genders: MASCULINE' );
 ok( DATIVE    == 1, 'cases: DATIVE' );
