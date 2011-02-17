@@ -1,10 +1,7 @@
-Lingua-RU-Inflect
+Lingua-RU-Preposition
 
-Lingua::RU::Inflect is a perl module
-that provides Russian linguistic procedures
-such as declension of given names (with some nouns and adjectives too),
-gender detection by given name
-and choosing of proper forms of varying prepositions.
+Lingua::RU::Preposition is a perl module that provides
+choosing proper forms of varying russian preposition by next word.
 
 INSTALLATION
 
@@ -20,26 +17,26 @@ SUPPORT AND DOCUMENTATION
 After installing, you can find documentation for this module with the
 perldoc command.
 
-    perldoc Lingua::RU::Inflect
+    perldoc Lingua::RU::Preposition
 
 You can also look for information at:
 
     RT, CPAN's request tracker
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=Lingua-RU-Inflect
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=Lingua-RU-Preposition
 
     AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/Lingua-RU-Inflect
+        http://annocpan.org/dist/Lingua-RU-Preposition
 
     CPAN Ratings
-        http://cpanratings.perl.org/d/Lingua-RU-Inflect
+        http://cpanratings.perl.org/d/Lingua-RU-Preposition
 
     Search CPAN
-        http://search.cpan.org/dist/Lingua-RU-Inflect/
+        http://search.cpan.org/dist/Lingua-RU-Preposition/
 
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2010 Alexander Sapozhnikov
+Copyright (C) 2010-2011 Alexander Sapozhnikov
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
