@@ -1,10 +1,13 @@
 #!perl -T
 
 use utf8;
-use Test::More 'no_plan';
+use Test::More 'tests' => 39;
 
-use Lingua::RU::Inflect;
-*p  = \&Lingua::RU::Inflect::choose_preposition_by_next_word;
+use Lingua::RU::Preposition;
+*p  = \&Lingua::RU::Preposition::choose_preposition_by_next_word;
+
+ok( p('без', 'всего') eq 'безо', 'bez/bezo: exception - vsego' ); # ambiguous: both words is OK
+ok( p('без', 'ноги')  eq 'без',  'bez/bezo: common' );
 
 ok( p('из', 'всех') eq 'изо', 'iz/izo: exception' );
 ok( p('из', 'меня') eq 'из',  'iz/izo: common' );
@@ -55,3 +58,4 @@ ok( p('перед', 'роем') eq 'перед',  'pered/peredo: common - roem' 
 ok( p('под', 'мной')   eq 'подо',   'pod/podo: exception - mnoi' );
 ok( p('под', 'льдом')  eq 'подо',   'pod/podo: exception - ldom' );
 ok( p('под', 'столом') eq 'под',    'pod/podo: common - stolom' );
+

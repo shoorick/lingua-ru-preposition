@@ -48,7 +48,7 @@ TODO: {
     "placeholder date/time"       => qr(Date/time)
   );
 
-  module_boilerplate_ok('lib/Lingua/RU/Inflect.pm');
+  module_boilerplate_ok('lib/Lingua/RU/Preposition.pm');
 
 
 }
