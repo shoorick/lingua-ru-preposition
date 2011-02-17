@@ -21,18 +21,15 @@ that provides choosing proper form of varying russian prepositions.
 
 =cut
 
-our ($REVISION, $DATE);
-($REVISION) = q$Revision$ =~ /(\d+)/g;
-($DATE)
-    = q$Date$ =~ /: (\d+)\s*$/g;
-
 
 BEGIN {
     use Exporter   ();
-    our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
+    our ($VERSION, $DATE, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
     # set the version for version checking
     $VERSION     = 0.01;
+    # date written by hands because git does not process keywords
+    $DATE        = '2011-02-18';
 
     @ISA         = qw(Exporter);
     @EXPORT      = qw(
@@ -54,6 +51,11 @@ BEGIN {
 
 =head1 SYNOPSIS
 
+    use Lingua::RU::Preposition qw/:all/;
+
+    # Following string contains cyrillic letters
+    print ob, 'мне'; # prints 'обо' (obo)
+    print choose_preposition_by_next_word 'из', 'огня'; # prints 'из' (iz)
 
 =head1 TO DO
 
@@ -61,25 +63,16 @@ Check rules by dictionaries and correct if needed.
 
 =head1 EXPORT
 
-Function C<detect_gender_by_given_name> and
-C<detect_gender_by_given_name> are exported by default.
+Function C<choose_preposition_by_next_word> exported by default.
 
-Also you can export only case names:
-
-    use Lingua::RU::Preposition qw/:cases/;
-
-Or only subs and genders
-
-    use Lingua::RU::Preposition qw/:subs :genders/;
-
-Or only short aliases for subs
+Also you can export only short aliases for subs
 
     use Lingua::RU::Preposition qw/:short/;
 
-Or everything: subs, aliases, genders and case names:
+Or everything: subs and aliases:
 
     use Lingua::RU::Preposition qw/:all/; # or
-    use Lingua::RU::Preposition qw/:cases :genders :subs :short/;
+    use Lingua::RU::Preposition qw/:subs :short/;
 
 =head1 FUNCTIONS
 
@@ -90,14 +83,18 @@ Chooses preposition by next word and returns chosen preposition.
 Expects 2 arguments: I<preposition> and I<next_word>.
 I<Preposition> should be string with shortest of possible values.
 Available values of I<preposition> are:
-C<'без'>, C<'в'>, C<'из'>, C<'к'>, C<'над'>, C<'о'>, C<'от'>, C<'пред'>, C<'перед'>,
-C<'под'> and  C<'с'>.
+C<'без'>, C<'в'>, C<'из'>, C<'к'>, C<'над'>, C<'о'>, C<'от'>,
+C<'пред'>, C<'перед'>, C<'под'> and  C<'с'>.
 
 There is an aliases for calling this subroutine with common preposition:
 
 =head3 bezo
 
 C<bezo> is an alias for C<choose_preposition_by_next_word 'без',>
+
+This preposition can be used with some words in both forms, they are correct.
+Example: “без всего” (bez vsego) and “безо всего” (bezo vsego) both are correct.
+If possible function return long form.
 
 =head3 izo
 
@@ -197,7 +194,7 @@ sub choose_preposition_by_next_word ($$) {
             : 'в'
         },
         'из' => sub {
-            for my $word qw( всех ) {
+            for my $word qw( всех льда ) {
                 return 'изо' if $word eq $_
             }
             'из'
@@ -264,7 +261,7 @@ Alexander Sapozhnikov, C<< <shoorick at cpan.org> >>
 =head1 BUGS
 
 Please report any bugs or feature requests
-to C<bug-lingua-ru-inflect at rt.cpan.org>, or through the web interface
+to C<bug-lingua-ru-preposition at rt.cpan.org>, or through the web interface
 at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Lingua-RU-Preposition>.
 I will be notified, and then
 you'll automatically be notified of progress on your bug as I make changes.
@@ -300,15 +297,11 @@ L<http://search.cpan.org/dist/Lingua-RU-Preposition/>
 =head1 SEE ALSO
 
 Russian translation of this documentation available
-at F<RU/Lingua/RU/Inflect.pod>
-
-=head1 ACKNOWLEDGEMENTS
-
-L<http://www.imena.org/declension.html> (in Russian) for rules of declension.
+at F<RU/Lingua/RU/Preposition.pod>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2009-2010 Alexander Sapozhnikov.
+Copyright 2010-2011 Alexander Sapozhnikov.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
