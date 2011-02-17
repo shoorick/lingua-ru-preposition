@@ -1,7 +1,7 @@
 Lingua-RU-Preposition
 
 Lingua::RU::Preposition is a perl module that provides
-choosing proper forms of varying russian preposition by next word.
+choosing proper form of varying russian preposition by next word.
 
 INSTALLATION
 
