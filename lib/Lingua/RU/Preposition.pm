@@ -12,12 +12,12 @@ Lingua::RU::Preposition - linguistic function for prepositions in Russian.
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =head1 DESCRIPTION
 
 Lingua::RU::Preposition is a perl module
-that provides choosing proper form of varying russian prepositions.
+that provides choosing proper form of varying Russian prepositions.
 
 =cut
 
@@ -27,9 +27,9 @@ BEGIN {
     our ($VERSION, $DATE, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
     # set the version for version checking
-    $VERSION     = 0.01;
+    $VERSION     = 0.02;
     # date written by hands because git does not process keywords
-    $DATE        = '2011-02-18';
+    $DATE        = '2014-09-16';
 
     @ISA         = qw(Exporter);
     @EXPORT      = qw(
@@ -38,7 +38,7 @@ BEGIN {
 
     # exported package globals
     @EXPORT_OK   = qw(
-        bezo izo ko nado ob obo oto predo peredo podo so vo
+        bezo izo izpodo ko nado ob obo oto predo peredo podo so vo
     );
 
     %EXPORT_TAGS = (
@@ -83,7 +83,7 @@ Chooses preposition by next word and returns chosen preposition.
 Expects 2 arguments: I<preposition> and I<next_word>.
 I<Preposition> should be string with shortest of possible values.
 Available values of I<preposition> are:
-C<'без'>, C<'в'>, C<'из'>, C<'к'>, C<'над'>, C<'о'>, C<'от'>,
+C<'без'>, C<'в'>, C<'из'>, C<'из-под'>, C<'к'>, C<'над'>, C<'о'>, C<'от'>,
 C<'пред'>, C<'перед'>, C<'под'> and  C<'с'>.
 
 There is an aliases for calling this subroutine with common preposition:
@@ -99,6 +99,10 @@ If possible function return long form.
 =head3 izo
 
 C<izo> is an alias for C<choose_preposition_by_next_word 'из',>
+
+=head3 izpodo
+
+C<izo> is an alias for C<choose_preposition_by_next_word 'из-под',>
 
 =head3 ko
 
@@ -168,7 +172,7 @@ sub choose_preposition_by_next_word ($$) {
 
     # Nested subroutine
     local *_check_instrumental = sub {
-        for my $word qw( льдом льном мной мною ) {
+        for my $word (qw( льдом льном мной мною )) {
             return $_[0] . 'о' if $word eq $_[1]
         }
         return $_[0]
@@ -178,7 +182,7 @@ sub choose_preposition_by_next_word ($$) {
     # TODO Check by dictionary
     my %GRAMMAR = (
         'без' => sub {
-            for my $word qw( всего всей всех всякого всякой всяких ) {
+            for my $word (qw( всего всей всех всякого всякой всяких )) {
                 # WARNING
                 # difficult case, both words are OK
                 return 'безо' if $word eq $_
@@ -186,7 +190,7 @@ sub choose_preposition_by_next_word ($$) {
             'без'
         },
         'в' => sub {
-            for my $word qw( все всём мне мно ) {
+            for my $word (qw( все всём мне мно )) {
                 return 'во' if /^$word/
             }
             /^[вф][^аеёиоуыэюя]/
@@ -194,19 +198,25 @@ sub choose_preposition_by_next_word ($$) {
             : 'в'
         },
         'из' => sub {
-            for my $word qw( всех льда ) {
+            for my $word (qw( всех льда )) {
                 return 'изо' if $word eq $_
             }
             'из'
         },
+        'из-под' => sub {
+            for my $word (qw( всех льда )) {
+                return 'из-подо' if $word eq $_
+            }
+            'из-под'
+        },
         'к' => sub {
-            for my $word qw( всем мне мно ) {
+            for my $word (qw( всем мне мно )) {
                 return 'ко' if /^$word/
             }
             'к'
         },
         'о' => sub {
-            for my $word qw( всех всем всём мне ) {
+            for my $word (qw( всех всем всём мне что )) {
                 return 'обо' if $word eq $_
             }
             return
@@ -215,7 +225,7 @@ sub choose_preposition_by_next_word ($$) {
                 : 'о'
         },
         'от' => sub {
-            for my $word qw( всех ) {
+            for my $word (qw( всех )) {
                 return 'ото' if $word eq $_
             }
             'от'
@@ -243,6 +253,7 @@ sub choose_preposition_by_next_word ($$) {
 # Aliases
 *bezo   = sub { choose_preposition_by_next_word 'без',   shift };
 *izo    = sub { choose_preposition_by_next_word 'из',    shift };
+*izpodo = sub { choose_preposition_by_next_word 'из-под',shift };
 *ko     = sub { choose_preposition_by_next_word 'к',     shift };
 *nado   = sub { choose_preposition_by_next_word 'над',   shift };
 *ob     = sub { choose_preposition_by_next_word 'о',     shift };
@@ -301,7 +312,7 @@ at F<RU/Lingua/RU/Preposition.pod>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2010-2011 Alexander Sapozhnikov.
+Copyright 2010-2014 Alexander Sapozhnikov.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
